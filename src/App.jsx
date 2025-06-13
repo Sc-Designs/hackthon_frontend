@@ -1,8 +1,9 @@
 import React from 'react'
+import FundraisingForm from './Pages/fundraiseCreateProfileform'
 
 const App = () => {
   return (
-    <div>App</div>
+    <FundraisingForm/>
   )
 }
 
