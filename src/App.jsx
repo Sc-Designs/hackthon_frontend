@@ -1,10 +1,9 @@
 import LandingPage from "./Pages/LandingPage"
+import AllRouters from "./Routers/AllRouters"
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-white">
-     <LandingPage />
-    </div>
+    <AllRouters/>
   )
 }
 
