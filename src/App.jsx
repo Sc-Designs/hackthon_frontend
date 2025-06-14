@@ -1,10 +1,9 @@
 import LandingPage from "./Pages/LandingPage"
 import AllRouters from "./Routers/AllRouters"
 
-const App = () => {
+function App() {
   return (
     <AllRouters/>
-  )
 }
 
-export default App
+export default App;

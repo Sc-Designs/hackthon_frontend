@@ -37,7 +37,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="pt-36 pb-12 bg-red-50">
+    <section className="pt-36 pb-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 h-72 sm:px-6 lg:px-8">
         <motion.div 
           className="bg-[#86CCA0] h-full rounded-3xl p-8 md:p-12 text-center flex flex-col justify-between"
