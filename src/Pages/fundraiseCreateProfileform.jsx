@@ -73,6 +73,8 @@ const FundraisingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleInputChange = (e, section, subsection) => {
+    if(e.target.value=='')return
+    e.preventDefault()
     const { name, value } = e.target;
 
     if (section && subsection) {
@@ -100,9 +102,11 @@ const FundraisingForm = () => {
         [name]: value
       }));
     }
+
   };
 
   const handleFileChange = (e, field, multiple = false) => {
+    e.preventDefault()
     const files = e.target.files;
     if (!files) return;
 
@@ -110,18 +114,21 @@ const FundraisingForm = () => {
       ...prev,
       [field]: multiple ? Array.from(files) : files[0]
     }));
+  console.log(mediaFiles)
   };
 
+
+
   const handleSubmit = async (e) => {
+    if(formData.notes==='')return;
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
+    
       const formDataToSend = new FormData();
-
-      // Append form data
-      formDataToSend.append('campaignTitle', formData.campaignTitle);
+formDataToSend.append('campaignTitle', formData.campaignTitle);
       formDataToSend.append('description', formData.description);
       formDataToSend.append('patient', JSON.stringify(formData.patient));
       formDataToSend.append('medical', JSON.stringify(formData.medical));
@@ -137,20 +144,27 @@ const FundraisingForm = () => {
       if (mediaFiles.videoAppeal) {
         formDataToSend.append('videoAppeal', mediaFiles.videoAppeal);
       }
+  if(mediaFiles.videoAppeal!==null){
 
-      const response = await axios.post('/ourapi', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+    axios.post("http://localhost:4000/user/raisefunds", formDataToSend, {
+      headers: {
+        "Content-Type": "multipart/form-data", // required for FormData
+      },
+    })
+    .then((response) => {
+      console.log("✅ Success:", response.data);
+    })
+    .catch((error) => {
+      console.error("❌ Error uploading data:", error);
+    });
+  }else return
 
-      console.log('Campaign created:', response.data);
       setSubmitStatus('success');
       
       // Reset form after successful submission
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 3000);
 
     } catch (error) {
       console.error('Error creating campaign:', error);
@@ -694,7 +708,7 @@ const FundraisingForm = () => {
         <textarea
           name="notes"
           value={formData.notes}
-          onChange={handleInputChange}
+          onChange={(e)=>{handleInputChange(e)}}
           rows={4}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
           placeholder="Any additional information or special requests"
@@ -748,7 +762,7 @@ const FundraisingForm = () => {
           <div className="px-8 py-8">
             {renderStepIndicator()}
             
-            <form onSubmit={handleSubmit}>
+            <div >
               {renderCurrentStep()}
 
               {/* Navigation Buttons */}
@@ -776,7 +790,7 @@ const FundraisingForm = () => {
                   </button>
                 ) : (
                   <button
-                    type="submit"
+                  onClick={(e)=>{handleSubmit(e)}}
                     disabled={isSubmitting}
                     className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
                   >
@@ -785,7 +799,7 @@ const FundraisingForm = () => {
                   </button>
                 )}
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
