@@ -1,9 +1,10 @@
-import React from 'react'
-import FundraisingForm from './Pages/fundraiseCreateProfileform'
+import LandingPage from "./Pages/LandingPage"
 
 const App = () => {
   return (
-    <FundraisingForm/>
+    <div className="min-h-screen bg-white">
+     <LandingPage />
+    </div>
   )
 }
 
