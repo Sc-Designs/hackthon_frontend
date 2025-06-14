@@ -1,8 +1,10 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigator = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -65,11 +67,11 @@ const HeroSection = () => {
             </motion.p>
           
             <motion.button 
-              className="bg-green-700 text-white text-sm px-8 py-3 rounded-full transition-colors inline-flex items-center gap-2"
+              className="bg-green-700 text-white text-sm cursor-pointer px-8 py-3 rounded-full transition-colors inline-flex items-center gap-2"
               variants={itemVariants}
               whileHover="hover"
               whileTap="tap"
-              
+              onClick={()=>navigator("/see-alldoctor")}
             >
               book consultation
               <motion.span

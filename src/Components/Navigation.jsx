@@ -15,6 +15,11 @@ function Navigation() {
       herfTo: "https://bloodcenter.netlify.app",
     },
     {
+      name: "Home",
+      color: "text-gray-700",
+      herfTo: "/",
+    },
+    {
       name: "Raise Funds",
       color: "text-gray-700",
       herfTo: "/fundraiser",
@@ -74,6 +79,7 @@ function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <motion.div
+          onClick={()=>navigate("/")}
             className="flex items-center"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
