@@ -1,11 +1,14 @@
-import LandingPage from "./Pages/LandingPage"
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./Pages/LandingPage";
+import DoctorPortal from "./Pages/DoctorPortal";
 
-const App = () => {
+function App() {
   return (
-    <div className="min-h-screen bg-white">
-     <LandingPage />
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/doctor-portal/*" element={<DoctorPortal />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
