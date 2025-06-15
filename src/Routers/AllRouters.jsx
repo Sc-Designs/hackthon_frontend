@@ -12,6 +12,11 @@ import DoctorLoginPage from "../Pages/DoctorLoginPage";
 import DoctorRegisterForm from "../Pages/DoctorRegisterForm";
 import DoctorProfile from "../Pages/DoctorProfile";
 import DoctorAuth from "../Auth/DoctorAuth";
+<<<<<<< HEAD
+=======
+import BookingPage from "../Pages/BookingPage";
+import BookingConfirmation from "../Pages/BookingConfirmation";
+>>>>>>> 69fb339 (Edited frontend code)
 
 const AllRouters = () => {
   return (
@@ -21,6 +26,11 @@ const AllRouters = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/doctor-login" element={<DoctorLoginPage />} />
         <Route path="/doctor-register" element={<DoctorRegisterForm />} />
+<<<<<<< HEAD
+=======
+        <Route path="/Book" element={<BookingPage/>}/>
+        <Route path="/booking-confirmation" element={<BookingConfirmation/>}/>
+>>>>>>> 69fb339 (Edited frontend code)
         <Route path="/doctor-portal/*" element={<DoctorPortal />} />
         <Route path="/see-alldoctor" element={<SeeAllDoctor />} />
         <Route element={<DoctorAuth />}>
