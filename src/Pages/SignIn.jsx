@@ -33,7 +33,11 @@ const SignIn = () => {
                 type="text"
                 className="w-full bg-transparent outline-none font-sans"
                 placeholder="Username"
-                {...register("username", { required: "Username is required" })}
+                {...register("username", { required: "Username is required", maxLength:{
+                  value:6,
+                  message:"Username must be in 6 charector"
+                }})}
+                onBlur={e => e.target.value = e.target.value.trim()}
               />
             </div>
             {errors.username && (
@@ -97,7 +101,7 @@ const SignIn = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded font-sans transition">
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded font-sans transition">
             Register
           </button>
           <div className="flex gap-x-2 items-center">

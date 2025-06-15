@@ -39,7 +39,7 @@ const Footer = () => {
           📍 123 Health Street,Delhi,IN <br /> 📞 +91 98765 43210 <br /> ✉️
           support@talktoarogya.com
         </p>
-        <Link to="/doctor-login">
+        <Link to="/doctor-profile">
         <h1 className="bg-green-600 w-fit px-5 py-3 text-white rounded-full">
         Doctor-Dashboard
         </h1>

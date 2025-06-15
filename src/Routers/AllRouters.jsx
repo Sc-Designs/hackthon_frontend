@@ -7,7 +7,7 @@ import Profile from "../Pages/Profile";
 import UserAuth from "../Auth/UserAuth";
 import SignIn from "../Pages/SignIn";
 import DoctorPortal from './../Pages/DoctorPortal';
-import SeeAllDoctor from "../Pages/SeeAllDoctor";
+// import SeeAllDoctor from "../Pages/";
 import DoctorLoginPage from "../Pages/DoctorLoginPage";
 import DoctorRegisterForm from "../Pages/DoctorRegisterForm";
 import DoctorProfile from "../Pages/DoctorProfile";
@@ -22,7 +22,7 @@ const AllRouters = () => {
         <Route path="/doctor-login" element={<DoctorLoginPage />} />
         <Route path="/doctor-register" element={<DoctorRegisterForm />} />
         <Route path="/doctor-portal/*" element={<DoctorPortal />} />
-        <Route path="/see-alldoctor" element={<SeeAllDoctor />} />
+        {/* <Route path="/see-alldoctor" element={<SeeAllDoctor />} /> */}
         <Route element={<DoctorAuth />}>
         <Route path="/doctor-profile" element={<DoctorProfile />} />
         </Route>

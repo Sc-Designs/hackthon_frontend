@@ -12,9 +12,14 @@ export const UserSlice = createSlice({
         },
         dataFetchFromAuth: (state,action)=>{
             return action.payload;
+        },
+        changeInData: (state,action)=>{
+            Object.entries(action.payload).forEach(([key, value]) => {
+                state[key] = value;
+            });
         }
     }
 });
 
 export const UserReducer = UserSlice.reducer;
-export const { login, dataFetchFromAuth } = UserSlice.actions;
+export const { login, dataFetchFromAuth, changeInData } = UserSlice.actions;

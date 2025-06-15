@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   User,
   Mail,
@@ -12,14 +12,11 @@ import {
   CalendarDays,
   Clock,
   Stethoscope,
+  Pencil,
 } from "lucide-react";
 import { useSelector } from "react-redux";
-
-// Doctor info
-const doctor = {
-  image:
-    "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80", // Sample doctor image
-};
+import DoctorPriofiePicUploadForm from './../Components/DoctorPriofiePicUploadForm';
+import { useNavigate } from "react-router-dom";
 
 // Dummy patients
 const patients = [
@@ -43,21 +40,36 @@ const patients = [
 
 const DoctorProfile = () => {
   const doctorDets = useSelector(state=>state.Doctor);
+  const [picModal, setpicModal] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="max-w-6xl mx-auto mt-10 px-4">
+      <button
+        onClick={() => navigate("/")}
+        className="fixed bg-green-400 top-5 left-5 cursor-pointer hover:bg-green-500 duration-150 px-5 py-3 text-white rounded-full">
+        Back To Home
+      </button>
+      {picModal && <DoctorPriofiePicUploadForm fn={setpicModal} />}
       {/* Doctor Profile */}
       <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-col md:flex-row gap-6 items-start">
         {/* Image Section */}
         <div className="w-full md:w-1/3 flex justify-center">
-          <img
-            src={
-              doctor.ProfilePic == null
-                ? doctor.image
-                : `data:${doctor.pictype};base64,${doctor.profilepic}`
-            }
-            alt="Doctor"
-            className="w-60 h-60 object-cover rounded-full border-4 border-blue-200 shadow"
-          />
+          <div className="relative w-60 h-60 rounded-full border-4 border-blue-200 shadow">
+            <img
+              src={
+                doctorDets.profileImage == null
+                  ? "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80"
+                  : `data:${doctorDets.pictype};base64,${doctorDets.profileImage}`
+              }
+              alt="Doctor"
+              className="w-full h-full object-cover rounded-full"
+            />
+            <div
+              onClick={() => setpicModal(true)}
+              className="px-2 absolute cursor-pointer hover:bg-yellow-400 duration-150 -translate-x-1/2 right-5 -bottom-1 rounded-full py-2 bg-yellow-300">
+              <Pencil className="scale-100" />
+            </div>
+          </div>
         </div>
 
         {/* Doctor Info Section */}
@@ -94,7 +106,7 @@ const DoctorProfile = () => {
             <InfoItem
               icon={<Briefcase size={18} />}
               label="Experience"
-              value={doctorDets.experience}
+              value={`${doctorDets.experience} ${doctorDets.experience > 1 ? "years" : "year"}`}
             />
             <InfoItem
               icon={<Languages size={18} />}

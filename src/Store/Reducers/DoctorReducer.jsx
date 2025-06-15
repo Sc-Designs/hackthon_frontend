@@ -13,8 +13,13 @@ export const DoctorSlice = createSlice({
     dataFetchFromAuth: (state, action) => {
       return action.payload;
     },
+    changeInData: (state, action) => {
+      Object.entries(action.payload).forEach(([key, value]) => {
+        state[key] = value;
+      });
+    },
   },
 });
 
 export const DoctorReducer = DoctorSlice.reducer;
-export const {login, dataFetchFromAuth} = DoctorSlice.actions;
+export const { login, dataFetchFromAuth, changeInData } = DoctorSlice.actions;

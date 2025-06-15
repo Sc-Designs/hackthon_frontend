@@ -11,7 +11,7 @@ const DoctorAuth = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("DoctorToken");
-
+    console.log(token)
     const fetchUser = async () => {
       if (!token) {
         navigate("/doctor-login");
