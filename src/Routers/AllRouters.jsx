@@ -14,6 +14,8 @@ import DoctorProfile from "../Pages/DoctorProfile";
 import DoctorAuth from "../Auth/DoctorAuth";
 import DonateFund from "../Pages/donateFund";
 import Fundraisingcampaigns from "../Pages/fundraisingcampaigns";
+import Blog from "../Pages/blogs";
+import AllBlogs from "../Pages/AllBlogs";
 
 const AllRouters = () => {
   return (
@@ -33,6 +35,8 @@ const AllRouters = () => {
           <Route path="/fundraiser" element={<FundraisingForm />} />
           <Route path="/fundraisingprofile" element={<DonateFund/>}/>
           <Route path="/Fundraisingcampaigns" element={<Fundraisingcampaigns/>}/>
+          <Route path="/blog" element={<Blog/>}/>
+          <Route path="/allblogs" element={<AllBlogs/>}/>
         </Route>
       </Routes>
   );

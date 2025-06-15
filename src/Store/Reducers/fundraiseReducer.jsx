@@ -15,7 +15,9 @@ const initialState = {
     error: false,
     data:false,
   },
+
   };
+
 
 // Thunk for fetching the fundraising profile
  const FetchfundraisingProfile = createAsyncThunk(
@@ -30,7 +32,7 @@ const initialState = {
  export const Fetchallfundraisecampaign = createAsyncThunk(
   'getraisingFund/all',
   async () => {
-    console.log("rubul")
+
     const response = await Axios.get(`http://localhost:4000/user/getraisingFund/all`);
     return response.data.data;
   }
@@ -80,7 +82,8 @@ const appSlice = createSlice({
       .addCase(Fetchallfundraisecampaign.rejected, (state, action) => {
         state.allFundraiseingcampaign.isLoading = false;
         state.allFundraiseingcampaign.error = action.error.message;
-      });
+      })
+     
   },
 });
 
