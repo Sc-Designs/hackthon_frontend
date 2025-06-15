@@ -14,6 +14,7 @@ import DoctorProfile from "../Pages/DoctorProfile";
 import DoctorAuth from "../Auth/DoctorAuth";
 import BookingPage from "../Pages/BookingPage";
 import BookingConfirmation from "../Pages/BookingConfirmation";
+import Medical_Organization from "../Pages/Medical_Organization";
 
 const AllRouters = () => {
   return (
@@ -29,6 +30,7 @@ const AllRouters = () => {
       {/* Booking Routes */}
       <Route path="/book" element={<BookingPage />} />
       <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+       <Route path="/Medical_Organization" element={<Medical_Organization/>} />
       
       {/* Doctor Protected Routes */}
       <Route element={<DoctorAuth />}>
@@ -40,6 +42,7 @@ const AllRouters = () => {
       <Route element={<UserAuth />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/fundraiser" element={<FundraisingForm />} />
+       
       </Route>
     </Routes>
   );

@@ -7,11 +7,11 @@ import DoctorCard from '../Components/DoctorCard';
 const SeeAllDoctor = () => {
   const navigate = useNavigate();
 
-  // Sample doctor data
+  
   const doctors = [
     {
       id: 1,
-      name: "Dr. Sarah Johnson",
+      name: "Dr. Sarah",
       specialty: "Cardiologist",
       experience: "10 years",
       rating: 4.8,

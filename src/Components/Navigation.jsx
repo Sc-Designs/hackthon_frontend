@@ -15,9 +15,9 @@ function Navigation() {
       herfTo: "https://bloodcenter.netlify.app",
     },
     {
-      name: "Home",
+      name:"Our Hospital",
       color: "text-gray-700",
-      herfTo: "/",
+      herfTo: "/Medical_Organization",
     },
     {
       name: "Raise Funds",
