@@ -16,22 +16,22 @@ const ServicesSection = () => {
       width: "w-full md:w-[30%]" // First row first box - 30%
     },
     { 
-      title: "Real-Time Chat System", 
-      description: "Chat directly with doctors for quick consultation and advice.", 
+      title: "Blood Donation ", 
+      description: "Our app connects you with life-saving opportunities by providing a seamless blood donation experience. Easily find nearby blood donation camps and hospitals, check your eligibility, and schedule appointments with just a few taps. You can also view your donation history and receive reminders for your next eligible donation, making it simple to contribute to your community and help those in need.", 
       icon: MessagesSquare, 
       bgColor: "bg-[#FF9C9C]",
       width: "w-full md:w-[70%]" // First row second box - 70%
     },
     { 
-      title: "Report & Feedback Submission", 
-      description: "Easily submit medical reports or feedback to your doctor.", 
+      title: "Fund Raising Campaign", 
+      description: "Our Fundraising Campaigns feature empowers you to make a real difference. Easily create and manage campaigns for medical emergencies, community projects, or any cause close to your heart. Share your story, collect donations securely, and track your progress in real-time, all within the app. Whether you're seeking help or offering it, this feature provides a transparent and efficient platform for giving and receiving support.", 
       icon: FileText, 
       bgColor: "bg-[#86CBA0]",
       width: "w-full md:w-[70%]" // Second row first box - 70%
     },
     { 
-      title: "AI-Powered Chatbot Assistance", 
-      description: "Get instant help navigating the platform with our smart chatbot.", 
+      title: "Health related Blogs&News", 
+      description: "Our Health Hub feature keeps you informed and empowered on your wellness journey. Dive into a curated collection of health-related blogs covering everything from traditional Indian remedies like Ayurveda to modern fitness trends, nutrition tips for local diets, and crucial mental well-being advice. Stay up-to-date with the latest health news, including public health alerts, medical advancements, and policy updates specific to India, helping you make informed decisions for a healthier life", 
       icon: Cpu, 
       bgColor: "bg-[#A4A9FF]",
       width: "w-full md:w-[30%]" // Second row second box - 30%
@@ -104,7 +104,7 @@ const ServicesSection = () => {
                 
               >
                 <div className="flex flex-col  justify-between py-6 h-full">
-                  <service.icon className="w-10 h-10 mb-6" />
+                  {/* <service.icon className="w-10 h-10 mb-6" /> */}
                   <h3 className="text-xl font-bold ">{service.title}</h3>
                   <p className="text-base opacity-90 flex-grow">{service.description}</p>
                 </div>
@@ -129,7 +129,7 @@ const ServicesSection = () => {
                 
               >
                 <div className="flex flex-col h-full">
-                  <service.icon className="w-10 h-10 mb-6" />
+                  {/* <service.icon className="w-10 h-10 mb-6" /> */}
                   <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                   <p className="text-base opacity-90 flex-grow">{service.description}</p>
                 </div>
