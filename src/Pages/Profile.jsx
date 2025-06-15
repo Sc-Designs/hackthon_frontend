@@ -5,6 +5,7 @@ import { Pencil } from 'lucide-react'
 
 const Profile = () => {
     const user = useSelector(state=>state.User)
+    console.log(user)
   return (
     <div className="w-full min-h-screen pt-26 text-black">
       <Navigation />
