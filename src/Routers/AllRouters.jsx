@@ -19,6 +19,8 @@ import DonateFund from './../Pages/DonateFund';
 import Blog from "../Pages/blogs";
 import AllBlogs from "../Pages/AllBlogs";
 import Emergency from "../Pages/Emergency";
+import NewsList from "../Components/newsList";
+import HealthNewsPage from "../Pages/news";
 
 const AllRouters = () => {
   return (
@@ -43,6 +45,8 @@ const AllRouters = () => {
           <Route path="/blog" element={<Blog/>}/>
           <Route path="/allblogs" element={<AllBlogs/>}/>
           <Route path="/emergency" element={<Emergency/>}/>
+          <Route path="/news" element={<HealthNewsPage/>}/>
+          
         </Route>
       </Routes>
   );

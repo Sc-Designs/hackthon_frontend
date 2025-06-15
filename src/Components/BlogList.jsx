@@ -12,7 +12,6 @@ useEffect(()=>{
 dispatch(FetchallBlogs())
 },[])
 const {data,error,isLoading}=useSelector((state)=>state.blog.allBlogs)
-console.log(data)
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: something went wrong try again later</p>;
 const scroll=(action)=>{
@@ -40,11 +39,12 @@ console.log(translatevalue.current)
 <div className={` flex flex-row  gap-2 `}>
 
                 {data.map((item,i)=>{
+                
                    return<>{i<6&&<div  onClick={()=>{dispatch(setBlogsid(item._id));navigate("/blog")}} key={i} className="p-6 h-full bg-gray-50">
   <div className="w-72 shrink-0 flex flex-col gap-2 p-4 border border-gray-200 rounded-2xl shadow-sm bg-white hover:shadow-md transition-shadow duration-200">
     <img
       className="object-cover w-full h-40 rounded-xl"
-      src={item.image}
+      src={item.images[0]}
       alt={item.title}
     />
     <p className="text-lg font-bold text-gray-800">{item.title}</p>
