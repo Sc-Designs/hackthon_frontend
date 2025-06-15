@@ -12,7 +12,6 @@ export const store = configureStore({
         Doctor: DoctorReducer,
         AllDoctors: AllDoctorReducer,
         fundraise:Fundraise,
-        fundraise:Fundraise,
         blog:blog
 
     }
