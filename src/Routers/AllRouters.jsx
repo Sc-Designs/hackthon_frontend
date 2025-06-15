@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "../Pages/LandingPage";
-import FundraisingForm from "../Pages/FundRaisingForm";
+import FundraisingForm from "../Pages/FundraisingForm";
 import Login from "../Pages/Login";
 import Profile from "../Pages/Profile";
 import UserAuth from "../Auth/UserAuth";
