@@ -32,11 +32,11 @@ const AllRouters = () => {
         <Route path="/doctor-profile" element={<DoctorProfile />} />
         <Route path="/doctor-portal/*" element={<DoctorPortal />} />
         </Route>
-          <Route path="/Fundraisingcampaigns" element={<Fundraisingcampaigns/>}/>
-          <Route path="/fundraisingprofile" element={<DonateFund/>}/>
         <Route element={<UserAuth />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/fundraiser" element={<FundraisingForm />} />
+          <Route path="/Fundraisingcampaigns" element={<Fundraisingcampaigns/>}/>
+          <Route path="/fundraisingprofile" element={<DonateFund/>}/>
         </Route>
       </Routes>
   );
