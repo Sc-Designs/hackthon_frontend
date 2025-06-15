@@ -5,6 +5,7 @@ import ServicesSection from '../Components/ServicesSection'
 import ReviewSection from '../Components/ReviewSection'
 import Footer from '../Components/Footer'
 import BlogList from '../Components/BlogList'
+import NewsList from '../Components/newsList'
 
 const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ const LandingPage = () => {
         <HeroSection />
         <ServicesSection />
         <BlogList/>
+        <NewsList/>
         <ReviewSection />
  
 

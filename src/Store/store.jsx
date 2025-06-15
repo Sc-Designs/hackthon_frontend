@@ -3,6 +3,7 @@ import {UserReducer} from "./Reducers/UserReducer"
 import { DoctorReducer } from "./Reducers/DoctorReducer";
 import blog from"./Reducers/blogsReducer";
 import Fundraise from"./Reducers/fundraiseReducer";
+import news from"./Reducers/newsReducer";
 export const store = configureStore({
     reducer:{
         // all reducers
@@ -11,6 +12,6 @@ export const store = configureStore({
         Doctor: DoctorReducer,
         fundraise:Fundraise,
         blog:blog
-
+,news:news
     }
 })
