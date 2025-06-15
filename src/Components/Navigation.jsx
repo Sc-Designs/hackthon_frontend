@@ -20,14 +20,14 @@ function Navigation() {
       herfTo: "/",
     },
     {
-      name: "Raise Funds",
+      name: "Fundraising Campaign",
       color: "text-gray-700",
-      herfTo: "/fundraiser",
+      herfTo: "/Fundraisingcampaigns",
     },
     {
-      name: "News",
+      name: "Raise Fund",
       color: "text-gray-700",
-      herfTo: "/",
+      herfTo: "/fundraiser",
     },
   ];
 

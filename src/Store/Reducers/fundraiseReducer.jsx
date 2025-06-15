@@ -10,8 +10,12 @@ const initialState = {
     error: false,
     data:false,
   },
-  allFundraiseingcampaign: null,
-};
+  allFundraiseingcampaign: {
+    isLoading: true,
+    error: false,
+    data:false,
+  },
+  };
 
 // Thunk for fetching the fundraising profile
  const FetchfundraisingProfile = createAsyncThunk(
@@ -20,6 +24,14 @@ const initialState = {
     const response = await Axios.get(
       `http://localhost:4000/user/raisingFundProfile/${id}`
     );
+    return response.data.data;
+  }
+);
+ export const Fetchallfundraisecampaign = createAsyncThunk(
+  'getraisingFund/all',
+  async () => {
+    console.log("rubul")
+    const response = await Axios.get(`http://localhost:4000/user/getraisingFund/all`);
     return response.data.data;
   }
 );
@@ -56,6 +68,18 @@ const appSlice = createSlice({
       .addCase(FetchfundraisingProfile.rejected, (state, action) => {
         state.Fundraisingprofile.isLoading = false;
         state.Fundraisingprofile.error = action.error.message;
+      })
+      .addCase(Fetchallfundraisecampaign.pending, (state) => {
+        state.allFundraiseingcampaign.isLoading = true;
+        state.allFundraiseingcampaign.error = null;
+      })
+      .addCase(Fetchallfundraisecampaign.fulfilled, (state, action) => {
+        state.allFundraiseingcampaign.isLoading = false;
+        state.allFundraiseingcampaign.data = action.payload;
+      })
+      .addCase(Fetchallfundraisecampaign.rejected, (state, action) => {
+        state.allFundraiseingcampaign.isLoading = false;
+        state.allFundraiseingcampaign.error = action.error.message;
       });
   },
 });

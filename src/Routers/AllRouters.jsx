@@ -13,6 +13,7 @@ import DoctorRegisterForm from "../Pages/DoctorRegisterForm";
 import DoctorProfile from "../Pages/DoctorProfile";
 import DoctorAuth from "../Auth/DoctorAuth";
 import DonateFund from "../Pages/donateFund";
+import Fundraisingcampaigns from "../Pages/fundraisingcampaigns";
 
 const AllRouters = () => {
   return (
@@ -31,6 +32,7 @@ const AllRouters = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/fundraiser" element={<FundraisingForm />} />
           <Route path="/fundraisingprofile" element={<DonateFund/>}/>
+          <Route path="/Fundraisingcampaigns" element={<Fundraisingcampaigns/>}/>
         </Route>
       </Routes>
   );
