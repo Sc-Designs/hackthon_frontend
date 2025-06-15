@@ -40,8 +40,16 @@ const patients = [
 
 const DoctorProfile = () => {
   const doctorDets = useSelector(state=>state.Doctor);
+  console.log(doctorDets)
   const [picModal, setpicModal] = useState(false);
   const navigate = useNavigate();
+  const jointArrIntoString = (arr)=>{
+    let str = "";
+    arr.forEach(element => {
+      str += `${element} `;
+    });
+    return str;
+  }
   return (
     <div className="max-w-6xl mx-auto mt-10 px-4">
       <button
@@ -101,17 +109,19 @@ const DoctorProfile = () => {
             <InfoItem
               icon={<GraduationCap size={18} />}
               label="Qualifications"
-              value={doctorDets.qualifications}
+              value={jointArrIntoString(doctorDets.qualifications)}
             />
             <InfoItem
               icon={<Briefcase size={18} />}
               label="Experience"
-              value={`${doctorDets.experience} ${doctorDets.experience > 1 ? "years" : "year"}`}
-              />
+              value={`${doctorDets.experience} ${
+                doctorDets.experience > 1 ? "years" : "year"
+              }`}
+            />
             <InfoItem
               icon={<Languages size={18} />}
               label="Languages"
-              value={doctorDets.languages}
+              value={jointArrIntoString(doctorDets.languages)}
             />
             <InfoItem
               icon={<Hospital size={18} />}
@@ -135,7 +145,7 @@ const DoctorProfile = () => {
               label="Available Days"
               value={
                 doctorDets.availableDays.length != 0
-                  ? doctorDets.availableDays
+                  ? jointArrIntoString(doctorDets.availableDays)
                   : "Not Mentioned"
               }
             />
@@ -144,7 +154,7 @@ const DoctorProfile = () => {
               label="Available Time"
               value={
                 doctorDets.availableTime
-                  ? doctorDets.availableTime
+                  ? `${doctorDets.availableTime.start}-${doctorDets.availableTime.end}`
                   : "Not Mentioned"
               }
             />

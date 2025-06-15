@@ -17,9 +17,13 @@ export const UserSlice = createSlice({
             Object.entries(action.payload).forEach(([key, value]) => {
                 state[key] = value;
             });
+        },
+        registerUser: (state,action)=>{
+            return action.payload;
         }
     }
 });
 
 export const UserReducer = UserSlice.reducer;
-export const { login, dataFetchFromAuth, changeInData } = UserSlice.actions;
+export const { login, dataFetchFromAuth, changeInData, registerUser } =
+  UserSlice.actions;

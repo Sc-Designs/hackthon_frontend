@@ -3,14 +3,20 @@ import { useForm } from "react-hook-form";
 import { User, Mail, Lock, EyeIcon, EyeClosed } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Axios from "../Config/Axios"
+import { useDispatch } from "react-redux";
+import { registerUser } from "../Store/Reducers/UserReducer";
 
 const SignIn = () => {
     const [passSee, setPassSee] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-  const onSubmit = (data) => {
-    // Handle registration logic here
-    console.log(data);
+    const dispatch = useDispatch()
+  const onSubmit = async(data) => {
+    const res = await Axios.post("/user/register",data);
+    localStorage.removeItem("UserToken");
+    localStorage.setItem("UserToken", res.data.token)
+    dispatch(registerUser(res.data.user));
+    navigate("/profile");
   };
 
   return (

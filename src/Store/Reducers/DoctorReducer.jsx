@@ -18,8 +18,11 @@ export const DoctorSlice = createSlice({
         state[key] = value;
       });
     },
+    signup: (state,action)=>{
+      return action.payload;
+    }
   },
 });
 
 export const DoctorReducer = DoctorSlice.reducer;
-export const { login, dataFetchFromAuth, changeInData } = DoctorSlice.actions;
+export const { login, dataFetchFromAuth, changeInData, signup } = DoctorSlice.actions;

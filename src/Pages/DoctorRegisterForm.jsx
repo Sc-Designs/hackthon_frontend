@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import DoctorAxios from "../Config/DoctorAxios";
 import {
   User,
   Lock,
@@ -14,22 +15,50 @@ import {
   Venus,
   GraduationCap,
   Briefcase,
+  Eye,
+  EyeClosed,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import { signup } from "../Store/Reducers/DoctorReducer";
+import { useDispatch } from "react-redux";
 
 const DoctorRegisterForm = () => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const splitStringToArray = (str) => {
+    if (typeof str !== "string") return [];
+    return str.split(",").map((item) => item.trim());
+  };
+
+  const navigate = useNavigate();
+  const [passSee, setpassSee] = useState(false);
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Doctor Data:", data);
-    reset();
+  const onSubmit = async (data) => {
+    const { availableTimeStart, availableTimeEnd, ...restData } = data;
+
+    const transformedData = {
+      ...restData,
+      availableDays: splitStringToArray(data.availableDays),
+      qualifications: splitStringToArray(data.qualifications),
+      languages: splitStringToArray(data.languages),
+      availableTime: {
+        start: availableTimeStart,
+        end: availableTimeEnd,
+      },
+    };
+
+    try {
+      const res = await DoctorAxios.post("/doctor/register", transformedData);
+      dispatch(signup(res.data.doctor));
+      navigate("/doctor-profile");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (
@@ -47,8 +76,9 @@ const DoctorRegisterForm = () => {
               <input
                 {...register("name", { required: "Name is required" })}
                 placeholder="Full Name"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -59,18 +89,26 @@ const DoctorRegisterForm = () => {
           <div>
             <div className="flex items-center gap-2">
               <Lock size={18} />
-              <input
-                type="password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                placeholder="Password"
-                className="w-full border rounded px-3 py-2"
-              />
+              <div className="w-full border rounded flex pr-2 items-center">
+                <input
+                  type={passSee ? "text" : "password"}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  placeholder="Password"
+                  className="w-full h-full px-3 py-2 outline-none"
+                />
+                {passSee ? (
+                  <Eye onClick={() => setpassSee(false)} size={18} />
+                ) : (
+                  <EyeClosed onClick={() => setpassSee(true)} size={18} />
+                )}
+              </div>
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
@@ -91,8 +129,9 @@ const DoctorRegisterForm = () => {
                   },
                 })}
                 placeholder="Email"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -112,8 +151,9 @@ const DoctorRegisterForm = () => {
                   },
                 })}
                 placeholder="Phone Number"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.phone && (
               <p className="text-red-500 text-sm">{errors.phone.message}</p>
@@ -128,9 +168,10 @@ const DoctorRegisterForm = () => {
                 {...register("qualifications", {
                   required: "Qualifications are required",
                 })}
-                placeholder="Qualifications"
-                className="w-full border rounded px-3 py-2"
+                placeholder="Qualifications (e.g. MBBS, MD)"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.qualifications && (
               <p className="text-red-500 text-sm">
@@ -146,8 +187,9 @@ const DoctorRegisterForm = () => {
               <input
                 {...register("address", { required: "Address is required" })}
                 placeholder="Address"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.address && (
               <p className="text-red-500 text-sm">{errors.address.message}</p>
@@ -163,8 +205,9 @@ const DoctorRegisterForm = () => {
                   required: "Specialization is required",
                 })}
                 placeholder="Specialization"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
+              <span className="text-red-500 text-lg">*</span>
             </div>
             {errors.specialization && (
               <p className="text-red-500 text-sm">
@@ -173,92 +216,131 @@ const DoctorRegisterForm = () => {
             )}
           </div>
 
-          {/* Optional Fields */}
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <Briefcase size={18} />
-                <input
-                  {...register("experience", {
-                    maxLength: { value: 2, message: "Not valid!" },
-                  })}
-                  placeholder="Experience (e.g. 5)"
-                  type="number"
-                  className="w-full border rounded px-3 py-2"
-                />
-              </div>
-              {errors.experience && (
-                <p className="text-red-500 text-sm">
-                  {errors.experience.message}
-                </p>
-              )}
+          {/* Experience */}
+          <div>
+            <div className="flex items-center gap-2">
+              <Briefcase size={18} />
+              <input
+                {...register("experience")}
+                placeholder="Experience (Years)"
+                type="number"
+                className="w-full border rounded px-3 py-2 outline-none"
+              />
             </div>
+          </div>
 
+          {/* Languages */}
+          <div>
             <div className="flex items-center gap-2">
               <Languages size={18} />
               <input
                 {...register("languages")}
-                placeholder="Languages (e.g. English, Hindi)"
-                className="w-full border rounded px-3 py-2"
+                placeholder="Languages (e.g. Hindi, English)"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
             </div>
+          </div>
 
+          {/* Available Days */}
+          <div>
             <div className="flex items-center gap-2">
               <CalendarDays size={18} />
               <input
                 {...register("availableDays")}
-                placeholder="Available Days (e.g. Mon-Fri)"
-                className="w-full border rounded px-3 py-2"
+                placeholder="Available Days (e.g. Mon,Wed,Fri)"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
             </div>
+          </div>
 
-            <div className="flex items-center gap-2">
-              <Clock size={18} />
+          {/* Available Time - START & END */}
+          <div className="md:col-span-2 flex gap-4 items-center">
+            <Clock size={18} />
+            <div className="flex flex-col w-full">
+              <label className="text-sm text-gray-600">Start Time</label>
               <input
-                {...register("availableTime")}
-                placeholder="Available Time (e.g. 10AM - 4PM)"
-                className="w-full border rounded px-3 py-2"
+                type="time"
+                {...register("availableTimeStart", {
+                  required: "Start time is required",
+                })}
+                className="border rounded px-3 py-2 outline-none"
               />
+              {errors.availableTimeStart && (
+                <p className="text-red-500 text-sm">
+                  {errors.availableTimeStart.message}
+                </p>
+              )}
             </div>
+            <div className="flex flex-col w-full">
+              <label className="text-sm text-gray-600">End Time</label>
+              <input
+                type="time"
+                {...register("availableTimeEnd", {
+                  required: "End time is required",
+                })}
+                className="border rounded px-3 py-2 outline-none"
+              />
+              {errors.availableTimeEnd && (
+                <p className="text-red-500 text-sm">
+                  {errors.availableTimeEnd.message}
+                </p>
+              )}
+            </div>
+          </div>
 
+          {/* Hospital Affiliation */}
+          <div>
             <div className="flex items-center gap-2">
               <Hospital size={18} />
               <input
                 {...register("hospitalAffiliation")}
                 placeholder="Hospital Affiliation"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
             </div>
+          </div>
 
+          {/* Clinic Name */}
+          <div>
             <div className="flex items-center gap-2">
               <Building2 size={18} />
               <input
                 {...register("clincname")}
                 placeholder="Clinic Name"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 outline-none"
               />
             </div>
+          </div>
 
+          {/* Gender */}
+          <div>
             <div className="flex items-center gap-2">
               <Venus size={18} />
               <select
-                {...register("gender")}
-                className="w-full border rounded px-3 py-2">
+                {...register("gender", { required: "Gender is required" })}
+                className="w-full border rounded px-3 py-2 outline-none">
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
+              <span className="text-red-500 text-lg">*</span>
             </div>
+            {errors.gender && (
+              <p className="text-red-500 text-sm">{errors.gender.message}</p>
+            )}
           </div>
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded mt-4 transition duration-200">
           Register
         </button>
-        <div className="flex gap-x-2 items-center">
+
+        {/* Or Login */}
+        <div className="flex gap-x-2 items-center mt-4">
           <div className="w-full h-[1px] bg-black"></div>
           <h1 className="font-semibold">Or</h1>
           <div className="w-full h-[1px] bg-black"></div>

@@ -2,12 +2,11 @@ import { Pencil } from "lucide-react";
 import React from "react";
 
 const PetientProfile = ({ patient, bookedDoctors,fn }) => {
-    console.log(patient)
   return (
     <div className="min-h-screen bg-gray-50 py-32 px-6 md:px-20">
       {/* Profile Section */}
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 mb-10">
-        <div className="flex items-center space-x-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-xl  px-2 py-6 lg:p-6 mb-10">
+        <div className="flex items-center gap-x-4">
           <div className="w-24 h-24 rounded-full border-2 relative border-blue-500">
             <img
               src={
@@ -18,18 +17,20 @@ const PetientProfile = ({ patient, bookedDoctors,fn }) => {
               className="w-w-full h-full rounded-full object-cover"
             />
             <abbr title="Edit Profile Pic">
-            <div
-              onClick={() => fn(true)}
-              className="px-1 absolute cursor-pointer hover:bg-yellow-400 duration-150 -translate-x-1/2 -right-5 -bottom-1 rounded-full py-1 bg-yellow-300">
-              <Pencil className="scale-75" />
-            </div>
-                  </abbr>
+              <div
+                onClick={() => fn(true)}
+                className="px-1 absolute cursor-pointer hover:bg-yellow-400 duration-150 -translate-x-1/2 -right-5 -bottom-1 rounded-full py-1 bg-yellow-300">
+                <Pencil className="scale-75" />
+              </div>
+            </abbr>
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-gray-800">
               {patient.username}
             </h2>
-            <p className="text-gray-600">{patient.email}</p>
+            <p className="text-gray-600 text-sm lg:text-base">
+              {patient.email}
+            </p>
             <p
               className={`mt-1 text-sm font-medium ${
                 patient.isActive ? "text-green-600" : "text-red-500"
