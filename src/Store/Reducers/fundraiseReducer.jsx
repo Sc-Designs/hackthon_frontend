@@ -1,6 +1,6 @@
 // src/redux/appSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Axios from 'axios';
+import Axios from '../../Config/Axios';
 
 // Initial State
 const initialState = {
@@ -30,8 +30,7 @@ const initialState = {
  export const Fetchallfundraisecampaign = createAsyncThunk(
   'getraisingFund/all',
   async () => {
-    console.log("rubul")
-    const response = await Axios.get(`http://localhost:4000/user/getraisingFund/all`);
+    const response = await Axios.get(`/user/getraisingFund/all`);
     return response.data.data;
   }
 );

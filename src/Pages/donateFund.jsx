@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { FetchfundraisingProfile} from"../Store/Reducers/fundraiseReducer"
 import { useSelector, useDispatch } from 'react-redux';
-import Axios from 'axios';
 import {
   Heart,
   MapPin,

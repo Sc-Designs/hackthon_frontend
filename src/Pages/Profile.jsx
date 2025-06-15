@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import PetientProfile from '../Components/PetientProfile'
-import Navigation from './../Components/Navigation';
 import UploadForm from '../Components/UploadForm';
 
 const Profile = () => {
@@ -9,7 +8,6 @@ const Profile = () => {
     const [picModel, setpicModel] = useState(false);
   return (
     <>
-      <Navigation />
       {picModel && <UploadForm fn={setpicModel} />}
       <PetientProfile
         fn={setpicModel}

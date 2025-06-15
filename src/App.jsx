@@ -6,7 +6,9 @@ function App() {
   return (
     <>
     <Navigation/>
+    <div className='pt-30 pb-10'>
     <AllRouters/>
+    </div>
     <Footer />
     </>
   )
