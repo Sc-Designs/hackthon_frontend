@@ -37,7 +37,7 @@ const DonateFund = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen mt-[80px] bg-gray-50">
       {/* Header */}
   
 

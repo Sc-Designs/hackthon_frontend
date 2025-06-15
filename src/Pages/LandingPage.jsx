@@ -1,9 +1,9 @@
 import React from 'react'
-import Navigation from '../Components/Navigation'
+
 import HeroSection from '../Components/HeroSection'
 import ServicesSection from '../Components/ServicesSection'
 import ReviewSection from '../Components/ReviewSection'
-import Footer from '../Components/Footer'
+import BlogList from '../Components/BlogList'
 
 const LandingPage = () => {
   return (
@@ -11,7 +11,9 @@ const LandingPage = () => {
  
         <HeroSection />
         <ServicesSection />
+        <BlogList/>
         <ReviewSection />
+ 
 
     
    </div>

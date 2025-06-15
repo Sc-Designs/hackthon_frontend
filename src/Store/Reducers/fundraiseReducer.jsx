@@ -15,7 +15,9 @@ const initialState = {
     error: false,
     data:false,
   },
+
   };
+
 
 // Thunk for fetching the fundraising profile
  const FetchfundraisingProfile = createAsyncThunk(
@@ -79,7 +81,8 @@ const appSlice = createSlice({
       .addCase(Fetchallfundraisecampaign.rejected, (state, action) => {
         state.allFundraiseingcampaign.isLoading = false;
         state.allFundraiseingcampaign.error = action.error.message;
-      });
+      })
+     
   },
 });
 

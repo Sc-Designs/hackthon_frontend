@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import {UserReducer} from "./Reducers/UserReducer"
 import { DoctorReducer } from "./Reducers/DoctorReducer";
 import { AllDoctorReducer } from "./Reducers/AllDoctorsReducer";
+import blog from"./Reducers/blogsReducer";
 import Fundraise from"./Reducers/fundraiseReducer";
 export const store = configureStore({
     reducer:{
@@ -10,6 +11,9 @@ export const store = configureStore({
         User : UserReducer,
         Doctor: DoctorReducer,
         AllDoctors: AllDoctorReducer,
-        fundraise:Fundraise
+        fundraise:Fundraise,
+        fundraise:Fundraise,
+        blog:blog
+
     }
 })
