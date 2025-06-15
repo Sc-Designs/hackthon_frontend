@@ -14,7 +14,7 @@ import {
   Share2
 } from 'lucide-react';
 
-function DonateFund () {
+const DonateFund = () => {
 
     const dispatch=useDispatch()
     const id=useSelector((state)=>state.fundraise.id)
