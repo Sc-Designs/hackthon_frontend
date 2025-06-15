@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Axios from '../Config/Axios';
+import {setFundraiseid} from"../Store/Reducers/fundraiseReducer"
+import {useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   Heart, 
   User, 
@@ -19,8 +22,15 @@ import {
   Loader2
 } from 'lucide-react';
 import Navigation from '../Components/Navigation';
+import { Navigate } from 'react-router-dom';
 
 const FundraisingForm = () => {
+const navigate=useNavigate()
+ const FundraiseState = useSelector((state) => state.fundraise.id);
+  const dispatch = useDispatch();
+  
+
+
   const [formData, setFormData] = useState({
     campaignTitle: '',
     description: '',
@@ -139,19 +149,22 @@ const FundraisingForm = () => {
         formDataToSend.append('videoAppeal', mediaFiles.videoAppeal);
       }
 
-      const response = await Axios.post('/ourapi', formDataToSend, {
+      const response = await Axios.post('http://localhost:4000/user/raisefunds', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
       console.log('Campaign created:', response.data);
-      setSubmitStatus('success');
+      if(response.data.success){
+
+        dispatch(setFundraiseid(response.data.data._id))
+        setSubmitStatus('success');
+        navigate("/fundraisingprofile")
+      }
       
       // Reset form after successful submission
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+     
 
     } catch (error) {
       console.error('Error creating campaign:', error);
@@ -685,7 +698,7 @@ const FundraisingForm = () => {
             onChange={(e) => handleFileChange(e, 'videoAppeal')}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
           />
-          <p className="text-xs text-gray-500 mt-1">Upload a video appeal (optional)</p>
+          <p className="text-xs text-gray-500 mt-1">Upload a video appeal (max size 10mb)</p>
         </div>
       </div>
 
@@ -750,7 +763,7 @@ const FundraisingForm = () => {
           <div className="px-8 py-8">
             {renderStepIndicator()}
             
-            <form onSubmit={handleSubmit}>
+            <div >
               {renderCurrentStep()}
 
               {/* Navigation Buttons */}
@@ -778,7 +791,7 @@ const FundraisingForm = () => {
                   </button>
                 ) : (
                   <button
-                    type="submit"
+                    onClick={(e)=>{handleSubmit(e)}}
                     disabled={isSubmitting}
                     className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
                   >
@@ -787,7 +800,7 @@ const FundraisingForm = () => {
                   </button>
                 )}
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

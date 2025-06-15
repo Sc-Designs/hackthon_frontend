@@ -14,6 +14,8 @@ import DoctorProfile from "../Pages/DoctorProfile";
 import DoctorAuth from "../Auth/DoctorAuth";
 import BookingConfirmation from "../Pages/BookingConfirmation";
 import BookingPage from './../Pages/BookingPage';
+import DonateFund from "../Pages/DonateFund";
+import Fundraisingcampaigns from "../Pages/fundraisingcampaigns";
 
 
 const AllRouters = () => {
@@ -26,14 +28,16 @@ const AllRouters = () => {
         <Route path="/doctor-register" element={<DoctorRegisterForm />} />
         <Route path="/Book" element={<BookingPage/>}/>
         <Route path="/booking-confirmation" element={<BookingConfirmation/>}/>
-        <Route path="/doctor-portal/*" element={<DoctorPortal />} />
         <Route path="/see-alldoctor" element={<SeeAllDoctor />} />
         <Route element={<DoctorAuth />}>
         <Route path="/doctor-profile" element={<DoctorProfile />} />
+        <Route path="/doctor-portal/*" element={<DoctorPortal />} />
         </Route>
         <Route element={<UserAuth />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/fundraiser" element={<FundraisingForm />} />
+          <Route path="/fundraisingprofile" element={<DonateFund/>}/>
+          <Route path="/Fundraisingcampaigns" element={<Fundraisingcampaigns/>}/>
         </Route>
       </Routes>
   );
