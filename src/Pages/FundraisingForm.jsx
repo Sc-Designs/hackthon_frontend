@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import Axios from '../Config/Axios';
+import {setFundraiseid} from"../Store/Reducers/fundraiseReducer"
+import {useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   Heart, 
   User, 
@@ -18,8 +21,16 @@ import {
   AlertCircle,
   Loader2
 } from 'lucide-react';
+import Navigation from '../Components/Navigation';
+import { Navigate } from 'react-router-dom';
 
 const FundraisingForm = () => {
+const navigate=useNavigate()
+ const FundraiseState = useSelector((state) => state.fundraise.id);
+  const dispatch = useDispatch();
+  
+
+
   const [formData, setFormData] = useState({
     campaignTitle: '',
     description: '',
@@ -73,8 +84,6 @@ const FundraisingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleInputChange = (e, section, subsection) => {
-    if(e.target.value=='')return
-    e.preventDefault()
     const { name, value } = e.target;
 
     if (section && subsection) {
@@ -102,11 +111,9 @@ const FundraisingForm = () => {
         [name]: value
       }));
     }
-
   };
 
   const handleFileChange = (e, field, multiple = false) => {
-    e.preventDefault()
     const files = e.target.files;
     if (!files) return;
 
@@ -114,21 +121,18 @@ const FundraisingForm = () => {
       ...prev,
       [field]: multiple ? Array.from(files) : files[0]
     }));
-  console.log(mediaFiles)
   };
 
-
-
   const handleSubmit = async (e) => {
-    if(formData.notes==='')return;
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-    
       const formDataToSend = new FormData();
-formDataToSend.append('campaignTitle', formData.campaignTitle);
+
+      // Append form data
+      formDataToSend.append('campaignTitle', formData.campaignTitle);
       formDataToSend.append('description', formData.description);
       formDataToSend.append('patient', JSON.stringify(formData.patient));
       formDataToSend.append('medical', JSON.stringify(formData.medical));
@@ -144,27 +148,23 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
       if (mediaFiles.videoAppeal) {
         formDataToSend.append('videoAppeal', mediaFiles.videoAppeal);
       }
-  if(mediaFiles.videoAppeal!==null){
 
-    axios.post("http://localhost:4000/user/raisefunds", formDataToSend, {
-      headers: {
-        "Content-Type": "multipart/form-data", // required for FormData
-      },
-    })
-    .then((response) => {
-      console.log("✅ Success:", response.data);
-    })
-    .catch((error) => {
-      console.error("❌ Error uploading data:", error);
-    });
-  }else return
+      const response = await Axios.post('http://localhost:4000/user/raisefunds', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
-      setSubmitStatus('success');
+      console.log('Campaign created:', response.data);
+      if(response.data.success){
+
+        dispatch(setFundraiseid(response.data.data._id))
+        setSubmitStatus('success');
+        navigate("/fundraisingprofile")
+      }
       
       // Reset form after successful submission
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 3000);
+     
 
     } catch (error) {
       console.error('Error creating campaign:', error);
@@ -193,6 +193,7 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
 
   const renderStepIndicator = () => (
     <div className="mb-8">
+      <Navigation />
       <div className="flex items-center justify-between">
         {steps.map((step, index) => {
           const Icon = step.icon;
@@ -697,7 +698,7 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
             onChange={(e) => handleFileChange(e, 'videoAppeal')}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
           />
-          <p className="text-xs text-gray-500 mt-1">Upload a video appeal (optional)</p>
+          <p className="text-xs text-gray-500 mt-1">Upload a video appeal (max size 10mb)</p>
         </div>
       </div>
 
@@ -708,7 +709,7 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
         <textarea
           name="notes"
           value={formData.notes}
-          onChange={(e)=>{handleInputChange(e)}}
+          onChange={handleInputChange}
           rows={4}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
           placeholder="Any additional information or special requests"
@@ -744,7 +745,7 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 pt-30 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           {/* Header */}
@@ -790,7 +791,7 @@ formDataToSend.append('campaignTitle', formData.campaignTitle);
                   </button>
                 ) : (
                   <button
-                  onClick={(e)=>{handleSubmit(e)}}
+                    onClick={(e)=>{handleSubmit(e)}}
                     disabled={isSubmitting}
                     className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
                   >
