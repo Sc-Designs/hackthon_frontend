@@ -33,11 +33,13 @@ const SignIn = () => {
                 type="text"
                 className="w-full bg-transparent outline-none font-sans"
                 placeholder="Username"
+
                 {...register("username", { required: "Username is required", maxLength:{
                   value:6,
                   message:"Username must be in 6 charector"
                 }})}
                 onBlur={e => e.target.value = e.target.value.trim()}
+
               />
             </div>
             {errors.username && (

@@ -107,7 +107,7 @@ const DoctorProfile = () => {
               icon={<Briefcase size={18} />}
               label="Experience"
               value={`${doctorDets.experience} ${doctorDets.experience > 1 ? "years" : "year"}`}
-            />
+              />
             <InfoItem
               icon={<Languages size={18} />}
               label="Languages"

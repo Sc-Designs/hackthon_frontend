@@ -40,6 +40,7 @@ const Footer = () => {
           support@talktoarogya.com
         </p>
         <Link to="/doctor-profile">
+
         <h1 className="bg-green-600 w-fit px-5 py-3 text-white rounded-full">
         Doctor-Dashboard
         </h1>
